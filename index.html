@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mindspark Form</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      /* Add any additional CSS styling here */
+    </style>
+  </head>
+  <body>
+    <canvas id="gradient-canvas" data-js-darken-top data-transition-in></canvas>
+    <div class="Form-box">
+      <h2>Genius Junior Submission Form</h2>
+      <form id="form" method="post" class="genius-form" name="genius-form">
+        <div class="user-box">
+          <input type="text" name="name" required />
+          <label>Name</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="school" required />
+          <label>School</label>
+        </div>
+        <div class="user-box">
+          <input type="phone" name="phone" required />
+          <label>Phone Number</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="standard" required />
+          <label>Standard</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="duplicate" required />
+          <label style="font-size: small;">Is this number used by any other Participant?</label>
+
+        </div>
+        <button type="submit">Submit</button>
+        <div class="loader"></div>
+      </form>
+    </div>
+    <div class="toast" id="toast"></div>
+    <script src="./gradient.js"></script>
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbwIpg2ZrWCYQ33AvL6F71V_IQz3DdJye10oo7ACWHqrWwF-BphdMaJPppNh21NvXVaW/exec";
+      const form = document.getElementById("form");
+      const loader = document.querySelector(".loader");
+      const toast = document.getElementById("toast");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        loader.style.display = "block";
+        fetch(scriptURL, {
+          redirect: "follow",
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then((response) => {
+            loader.style.display = "none";
+            toast.textContent =
+              "Thank you! Your form has been submitted successfully.";
+            toast.classList.add("show");
+            setTimeout(() => {
+              toast.classList.remove("show");
+            }, 3000);
+            form.reset();
+          })
+          .catch((error) => {
+            loaderContainer.style.display = "none"; // Hide loader
+            toast.textContent = "An error occurred. Please try again later.";
+            toast.classList.add("show");
+            setTimeout(() => {
+              toast.classList.remove("show");
+            }, 3000);
+            console.error("Error!", error.message);
+          });
+      });
+    </script>
+  </body>
+</html>
