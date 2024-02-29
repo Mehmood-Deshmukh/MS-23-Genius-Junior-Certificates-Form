@@ -23,17 +23,20 @@
           <label>School</label>
         </div>
         <div class="user-box">
-          <input type="phone" name="phone" required />
-          <label>Phone Number</label>
-        </div>
-        <div class="user-box">
           <input type="text" name="standard" required />
           <label>Standard</label>
         </div>
         <div class="user-box">
-          <input type="text" name="duplicate" required />
-          <label style="font-size: small;">Is this number used by any other Participant?</label>
+          <input type="phone" name="phone" required />
+          <label>Phone Number</label>
+        </div>
 
+        <div class="user-box">
+          <select name="duplicate" required>
+            <option value="">Is this number used by any other Participant?</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
         </div>
         <button type="submit">Submit</button>
         <div class="loader"></div>
